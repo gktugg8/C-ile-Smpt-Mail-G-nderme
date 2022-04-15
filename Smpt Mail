@@ -1,0 +1,23 @@
+ [HttpPost]
+        public bool MailGonder(string Adi, string Mail, string Telefon, string Konu, string Mesaj)
+        {
+            MailMessage mail = new MailMessage();
+            mail.To.Add("Gönderilecek Mail Adresi");
+            mail.From = new MailAddress("Mail Adresi");
+            mail.Subject = "Bize Ulaşın Sayfasından Mesajınız var :" + " " + Konu;
+            string Body = Mesaj;
+            mail.Body = "Adı Soyadı:" + Adi + " " + "<br>" + "Mail:" + Mail + " " + "<br>" + "Mesaj:" + Body + " " + "<br>" + "Konu:" + Konu;
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new System.Net.NetworkCredential("Mail Adresi", "Şifre");
+            smtp.EnableSsl = true;
+            smtp.Send(mail);
+
+
+
+
+            return true;
+        }
